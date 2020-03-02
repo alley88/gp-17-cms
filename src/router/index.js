@@ -1,27 +1,44 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-
+import Vue from "vue";
+import VueRouter from "vue-router";
+import shopManage from "./shopManage"
+import userManage from "./userManage"
+import login from "./login"
+import home from "./home"
+import store from "@store";
 Vue.use(VueRouter)
+const config = [
+    {
+        path: "",
+        component: _ => import("@pages/layout"),
+        name: "layout",
+        children: [
+            home,
+            shopManage,
+            userManage,
+        ]
+    },
+    login
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
 ]
 
+
 const router = new VueRouter({
-  routes
+    mode: "hash",
+    routes: config
 })
 
-export default router
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.authRequired) {
+        next();
+    } else {
+        if (store.state.authToken) {
+            next();
+        } else {
+            next("/login");
+        }
+    }
+})
+
+
+export default router;

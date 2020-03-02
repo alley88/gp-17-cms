@@ -1,15 +1,21 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import Cookies from "js-cookie"
+Vue.use(Vuex);
 
-Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
+const store = new Vuex.Store({
+    state:{
+        authToken: Cookies.get("token") || ""
+    },
+    mutations:{
+        handleAuthToken(state,data){
+            state.authToken  = data;
+            Cookies.set("token",data)
+        }
+    },
+    actions:{}
 })
+
+
+export default store
