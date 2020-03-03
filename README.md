@@ -1,29 +1,11 @@
-# my_cms
-
-## Project setup
+# 注意的地方
+**在element-ui中一般情况下设计到组件嵌套的时候如何进行传值**
+```vue
+    <template>
+         <zujian>
+            <template slot-scope="props">
+                <p>{{props.row.属性}}</p>
+            </template>
+         </zujian>
+    </template>
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
